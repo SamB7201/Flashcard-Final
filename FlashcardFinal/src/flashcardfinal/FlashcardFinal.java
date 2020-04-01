@@ -5,8 +5,16 @@
  */
 package flashcardfinal;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,15 +26,84 @@ import javax.swing.JOptionPane;
  * @author Sam
  */
 public class FlashcardFinal extends javax.swing.JFrame {
+    Flashcard aCard;
+    String line;
+    FileSystem fs;
+    Path pathToFile;
+    String selectedFile;
+    InputStream cardln = null;
+    BufferedReader cardReader;
     JFileChooser saveChooser = new JFileChooser();
     File saveFile = null;
     ArrayList<Flashcard> displayCards = new ArrayList<Flashcard>();
     ArrayList<Flashcard> saveCards = new ArrayList<Flashcard>();
+    int index = 0;
+    
     /**
      * Creates new form FlashcardFinal
      */
+    
+    public void showRecord() {
+        this.TermLabel.setText(displayCards.get(index).getTerm());
+        this.setTitle("Card # " + index);
+    }
+    
+    public void updateRecord() {
+        displayCards.get(index).setTerm(this.TermLabel.getText());
+        
+    }
+    
+    public void writeToFile() {
+        String outputLine = "";
+        
+        try {
+            FileWriter fileOut = new FileWriter(saveFile);
+            
+            for(int x = 0; x < displayCards.size(); x++) {
+                outputLine = String.format("%s,%s\n",displayCards.get(x).getTerm(), displayCards.get(x).getDefinition());
+                fileOut.write(outputLine);
+            }
+            fileOut.close();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Cannot write company file\n" + ex.getMessage(), "File IO Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    
     public FlashcardFinal() {
         initComponents();
+        
+        try{
+            fs = FileSystems.getDefault();
+            pathToFile = fs.getPath("c:\\Data\\flashcardterms.csv");
+            cardln = Files.newInputStream(pathToFile);
+            cardReader = new BufferedReader(new InputStreamReader(cardln));
+            
+            //read the file
+        while((line = cardReader.readLine()) != null) {
+                String data[] = line.split(",");
+                aCard = new Flashcard();
+                
+                try {
+                    aCard.setTerm(data[0]);
+                    aCard.setDefinition(data[1]);
+                    
+                    displayCards.add(aCard);
+                    
+                } catch (NumberFormatException numberFormatException) {
+                    //do nothing - skip the error
+                    //eliminate problems with bad ids
+                    //in reality you would fix this
+                }
+            }//end of while
+            
+            cardln.close();
+        }
+        catch(IOException ex) {
+            System.out.println("Cannont open " + pathToFile.getFileName());
+            System.exit(1);
+        }//end of catch
+        showRecord();
     }
 
     /**
@@ -220,14 +297,49 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 }
             }
         }
+        try{
+            selectedFile = saveFile.toString();
+            fs = FileSystems.getDefault();
+            pathToFile = fs.getPath(selectedFile);
+            cardln = Files.newInputStream(pathToFile);
+            cardReader = new BufferedReader(new InputStreamReader(cardln));
+            
+            //read the file
+        while((line = cardReader.readLine()) != null) {
+                String data[] = line.split(",");
+                aCard = new Flashcard();
+                
+                try {
+                    aCard.setTerm(data[0]);
+                    aCard.setDefinition(data[1]);
+                    
+                    displayCards.add(aCard);
+                    
+                } catch (NumberFormatException numberFormatException) {
+                    //do nothing - skip the error
+                    //eliminate problems with bad ids
+                    //in reality you would fix this
+                }
+            }//end of while
+            
+            cardln.close();
+            //JOptionPane.showMessageDialog(this, "Records read = " + contactList.size());
+        }
+        catch(IOException ex) {
+            System.out.println("Cannont open " + pathToFile.getFileName());
+            System.exit(1);
+        }//end of catch
+        showRecord();
     }//GEN-LAST:event_chooseButtonActionPerformed
 
     private void displayPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayPanelMouseClicked
         if(evt.getButton() == evt.BUTTON1){
-           this.TermLabel.setText("Definition");
+           //this.TermLabel.setText("Definition");
+           this.TermLabel.setText(displayCards.get(index).getDefinition());
            
        }else if(evt.getButton() == evt.BUTTON3){
-           this.TermLabel.setText("Term");
+           //this.TermLabel.setText("Term");
+           this.TermLabel.setText(displayCards.get(index).getTerm());
        }
     }//GEN-LAST:event_displayPanelMouseClicked
 

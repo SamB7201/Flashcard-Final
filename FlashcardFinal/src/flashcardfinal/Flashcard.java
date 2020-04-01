@@ -10,15 +10,15 @@ package flashcardfinal;
  * @author roblo
  */
 public class Flashcard {
-     private String term;
-    private String defintion;
+    private String term;
+    private String definition;
 
     public Flashcard() {
     }
 
     public Flashcard(String term, String defintion) {
         this.term = term;
-        this.defintion = defintion;
+        this.definition = defintion;
     }
 
     public String getTerm() {
@@ -29,16 +29,16 @@ public class Flashcard {
         this.term = term;
     }
 
-    public String getDefintion() {
-        return defintion;
+    public String getDefinition() {
+        return definition;
     }
 
-    public void setDefintion(String defintion) {
-        this.defintion = defintion;
+    public void setDefinition(String definition) {
+        this.definition = definition;
     }
 
     @Override
     public String toString() {
-        return term + "," + defintion;
+        return term + "," + definition;
     }
 }
