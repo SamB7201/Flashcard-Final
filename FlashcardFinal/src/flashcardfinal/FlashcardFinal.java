@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
  * @author Sam
  */
 public class FlashcardFinal extends javax.swing.JFrame {
+
     Flashcard aCard;
     String line;
     FileSystem fs;
@@ -38,72 +39,71 @@ public class FlashcardFinal extends javax.swing.JFrame {
     ArrayList<Flashcard> displayCards = new ArrayList<Flashcard>();
     ArrayList<Flashcard> saveCards = new ArrayList<Flashcard>();
     int index = 0;
-    
+
     /**
      * Creates new form FlashcardFinal
      */
-    
     public void showRecord() {
-        this.TermLabel.setText(displayCards.get(index).getTerm());
-        this.setTitle("Card # " + index);
+        TextAreaField.setText(displayCards.get(index).getTerm());
+        this.TermLabel.setText("Card # " + (index + 1));
     }
-    
+
     public void updateRecord() {
-        displayCards.get(index).setTerm(this.TermLabel.getText());
-        
+        saveCards.add(new Flashcard(termField.getText(), defField.getText()));
+
     }
-    
+
     public void writeToFile() {
         String outputLine = "";
-        
+
         try {
             FileWriter fileOut = new FileWriter(saveFile);
-            
-            for(int x = 0; x < displayCards.size(); x++) {
-                outputLine = String.format("%s,%s\n",displayCards.get(x).getTerm(), displayCards.get(x).getDefinition());
+
+            for (int x = 0; x < saveCards.size(); x++) {
+                outputLine = String.format("%s,%s\n", saveCards.get(x).getTerm(), saveCards.get(x).getDefinition());
                 fileOut.write(outputLine);
             }
             fileOut.close();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Cannot write company file\n" + ex.getMessage(), "File IO Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cannot write flashcards\n" + ex.getMessage(), "File IO Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    
+
     public FlashcardFinal() {
         initComponents();
-        
-        try{
-            fs = FileSystems.getDefault();
-            pathToFile = fs.getPath("c:\\Data\\flashcardterms.csv");
-            cardln = Files.newInputStream(pathToFile);
-            cardReader = new BufferedReader(new InputStreamReader(cardln));
-            
-            //read the file
-        while((line = cardReader.readLine()) != null) {
-                String data[] = line.split(",");
-                aCard = new Flashcard();
-                
-                try {
-                    aCard.setTerm(data[0]);
-                    aCard.setDefinition(data[1]);
-                    
-                    displayCards.add(aCard);
-                    
-                } catch (NumberFormatException numberFormatException) {
-                    //do nothing - skip the error
-                    //eliminate problems with bad ids
-                    //in reality you would fix this
-                }
-            }//end of while
-            
-            cardln.close();
-        }
-        catch(IOException ex) {
-            System.out.println("Cannont open " + pathToFile.getFileName());
-            System.exit(1);
-        }//end of catch
-        showRecord();
+        this.TermLabel.setText("Card # " + (index + 1));
+        this.setTitle("Flashcards");
+//        try {
+//            fs = FileSystems.getDefault();
+//            pathToFile = fs.getPath("c:\\Data\\flashcardterms.csv");
+//            cardln = Files.newInputStream(pathToFile);
+//            cardReader = new BufferedReader(new InputStreamReader(cardln));
+//
+//            //read the file
+//            while ((line = cardReader.readLine()) != null) {
+//                String data[] = line.split(",");
+//                aCard = new Flashcard();
+//
+//                try {
+//                    aCard.setTerm(data[0]);
+//                    aCard.setDefinition(data[1]);
+//
+//                    displayCards.add(aCard);
+//
+//                } catch (NumberFormatException numberFormatException) {
+//                    //do nothing - skip the error
+//                    //eliminate problems with bad ids
+//                    //in reality you would fix this
+//                }
+//            }//end of while
+//
+//            cardln.close();
+//        } catch (IOException ex) {
+//            System.out.println("Cannont open " + pathToFile.getFileName());
+//            System.exit(1);
+//        }//end of catch
+//        showRecord();
     }
 
     /**
@@ -117,16 +117,19 @@ public class FlashcardFinal extends javax.swing.JFrame {
 
         tabPanel = new javax.swing.JTabbedPane();
         displayPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        displayCardPanel = new javax.swing.JPanel();
         TermLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TextAreaField = new javax.swing.JTextArea();
+        prevButton = new javax.swing.JButton();
+        nextCard = new javax.swing.JButton();
+        chooseDisplay = new javax.swing.JButton();
         savePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         termField = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        termField1 = new javax.swing.JTextArea();
+        defField = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         cardAddButton = new javax.swing.JButton();
         chooseButton = new javax.swing.JButton();
@@ -143,42 +146,81 @@ public class FlashcardFinal extends javax.swing.JFrame {
         TermLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TermLabel.setText("Term");
 
+        TextAreaField.setEditable(false);
         TextAreaField.setColumns(20);
+        TextAreaField.setLineWrap(true);
         TextAreaField.setRows(5);
+        TextAreaField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextAreaFieldMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TextAreaField);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        prevButton.setText("Previous Card");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
+
+        nextCard.setText("Next Card");
+        nextCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextCardActionPerformed(evt);
+            }
+        });
+
+        chooseDisplay.setText("Choose File for Displayed Cards");
+        chooseDisplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseDisplayActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout displayCardPanelLayout = new javax.swing.GroupLayout(displayCardPanel);
+        displayCardPanel.setLayout(displayCardPanelLayout);
+        displayCardPanelLayout.setHorizontalGroup(
+            displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(displayCardPanelLayout.createSequentialGroup()
+                .addComponent(prevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nextCard, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+            .addGroup(displayCardPanelLayout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(TermLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(chooseDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        displayCardPanelLayout.setVerticalGroup(
+            displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(displayCardPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(TermLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(prevButton, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(nextCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chooseDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout displayPanelLayout = new javax.swing.GroupLayout(displayPanel);
         displayPanel.setLayout(displayPanelLayout);
         displayPanelLayout.setHorizontalGroup(
             displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(displayCardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         displayPanelLayout.setVerticalGroup(
             displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(displayPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addComponent(displayCardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Flashcard Display", displayPanel);
@@ -191,9 +233,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Term");
 
-        termField1.setColumns(20);
-        termField1.setRows(5);
-        jScrollPane3.setViewportView(termField1);
+        defField.setColumns(20);
+        defField.setRows(5);
+        jScrollPane3.setViewportView(defField);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -255,7 +297,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 366, Short.MAX_VALUE)
+                .addComponent(tabPanel)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -274,74 +316,153 @@ public class FlashcardFinal extends javax.swing.JFrame {
         //initialize integer to hold user input
         int fileSelection = 0;
         //get user input
-        try{
+        try {
             fileSelection = saveChooser.showSaveDialog(this);
-        } catch(Exception e){
+        } catch (Exception e) {
 
         }
         //If user approves save
-        if(fileSelection == JFileChooser.APPROVE_OPTION){
+        if (fileSelection == JFileChooser.APPROVE_OPTION) {
             //set saveFile to the selected file
             saveFile = saveChooser.getSelectedFile();
             //If the file does not exist
-            if(!saveFile.exists()){
+            if (!saveFile.exists()) {
                 //Create new file
                 try {
                     saveFile.createNewFile();
                     //Obligatory catch
                 } catch (IOException ex) {
                     //Error message
-                    JOptionPane.showMessageDialog(this,"Couldn't create file: " + saveFile.getPath() +
-                        "\nException Method:\n" + ex.getMessage(),"ERROR",
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Couldn't create file: " + saveFile.getPath()
+                            + "\nException Method:\n" + ex.getMessage(), "ERROR",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
+        } else {
+            return;
         }
-        try{
+        try {
             selectedFile = saveFile.toString();
             fs = FileSystems.getDefault();
             pathToFile = fs.getPath(selectedFile);
             cardln = Files.newInputStream(pathToFile);
             cardReader = new BufferedReader(new InputStreamReader(cardln));
-            
+
             //read the file
-        while((line = cardReader.readLine()) != null) {
+            while ((line = cardReader.readLine()) != null) {
                 String data[] = line.split(",");
                 aCard = new Flashcard();
-                
+
                 try {
                     aCard.setTerm(data[0]);
                     aCard.setDefinition(data[1]);
-                    
-                    displayCards.add(aCard);
-                    
+
+                    saveCards.add(aCard);
+
                 } catch (NumberFormatException numberFormatException) {
                     //do nothing - skip the error
                     //eliminate problems with bad ids
                     //in reality you would fix this
                 }
             }//end of while
-            
+
             cardln.close();
             //JOptionPane.showMessageDialog(this, "Records read = " + contactList.size());
-        }
-        catch(IOException ex) {
+        } catch (IOException ex) {
             System.out.println("Cannont open " + pathToFile.getFileName());
             System.exit(1);
         }//end of catch
+
         showRecord();
     }//GEN-LAST:event_chooseButtonActionPerformed
 
     private void displayPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayPanelMouseClicked
-        if(evt.getButton() == evt.BUTTON1){
-           //this.TermLabel.setText("Definition");
-           this.TermLabel.setText(displayCards.get(index).getDefinition());
-           
-       }else if(evt.getButton() == evt.BUTTON3){
-           //this.TermLabel.setText("Term");
-           this.TermLabel.setText(displayCards.get(index).getTerm());
-       }
+
     }//GEN-LAST:event_displayPanelMouseClicked
+
+    private void TextAreaFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextAreaFieldMouseClicked
+        // TODO add your handling code here:
+        if (evt.getButton() == evt.BUTTON1) {
+            //this.TermLabel.setText("Definition");
+            this.TextAreaField.setText(displayCards.get(index).getDefinition());
+
+        } else if (evt.getButton() == evt.BUTTON3) {
+            //this.TermLabel.setText("Term");
+            this.TextAreaField.setText(displayCards.get(index).getTerm());
+        }
+    }//GEN-LAST:event_TextAreaFieldMouseClicked
+
+    private void chooseDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDisplayActionPerformed
+        // TODO add your handling code here:
+        //initialize integer to hold user input
+        int fileSelection = 0;
+        //get user input
+        try {
+            fileSelection = saveChooser.showOpenDialog(this);
+        } catch (Exception e) {
+
+        }
+        //If user approves save
+        if (fileSelection == JFileChooser.APPROVE_OPTION) {
+            //set saveFile to the selected file
+            saveFile = saveChooser.getSelectedFile();
+            //If the file does not exist
+            if (!saveFile.exists()) {
+                JOptionPane.showMessageDialog(this, "File " + saveFile.getPath() + " does not exist!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            return;
+        }
+        try {
+            selectedFile = saveFile.toString();
+            fs = FileSystems.getDefault();
+            pathToFile = fs.getPath(selectedFile);
+            cardln = Files.newInputStream(pathToFile);
+            cardReader = new BufferedReader(new InputStreamReader(cardln));
+
+            //read the file
+            while ((line = cardReader.readLine()) != null) {
+                String data[] = line.split(",");
+                aCard = new Flashcard();
+
+                try {
+                    aCard.setTerm(data[0]);
+                    aCard.setDefinition(data[1]);
+
+                    displayCards.add(aCard);
+
+                } catch (NumberFormatException numberFormatException) {
+                    //do nothing - skip the error
+                    //eliminate problems with bad ids
+                    //in reality you would fix this
+                }
+            }//end of while
+
+            cardln.close();
+            //JOptionPane.showMessageDialog(this, "Records read = " + contactList.size());
+        } catch (IOException ex) {
+            System.out.println("Cannont open " + pathToFile.getFileName());
+            System.exit(1);
+        }
+        showRecord();
+    }//GEN-LAST:event_chooseDisplayActionPerformed
+
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        // TODO add your handling code here:
+        if (displayCards.size() != 0) {
+            index = Math.max(index - 1, 0);
+            showRecord();
+        }
+    }//GEN-LAST:event_prevButtonActionPerformed
+
+    private void nextCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextCardActionPerformed
+        // TODO add your handling code here:
+        if (displayCards.size() != 0) {
+            index = Math.min(index + 1, displayCards.size() - 1);
+            showRecord();
+        }
+    }//GEN-LAST:event_nextCardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,16 +504,19 @@ public class FlashcardFinal extends javax.swing.JFrame {
     private javax.swing.JTextArea TextAreaField;
     private javax.swing.JButton cardAddButton;
     private javax.swing.JButton chooseButton;
+    private javax.swing.JButton chooseDisplay;
+    private javax.swing.JTextArea defField;
+    private javax.swing.JPanel displayCardPanel;
     private javax.swing.JPanel displayPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton nextCard;
+    private javax.swing.JButton prevButton;
     private javax.swing.JPanel savePanel;
     private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JTextArea termField;
-    private javax.swing.JTextArea termField1;
     // End of variables declaration//GEN-END:variables
 }
