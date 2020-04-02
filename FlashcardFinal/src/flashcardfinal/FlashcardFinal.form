@@ -34,7 +34,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabPanel" max="32767" attributes="0"/>
+              <Component id="tabPanel" pref="471" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -68,7 +68,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="displayCardPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="93" max="32767" attributes="0"/>
+                      <EmptySpace pref="73" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -83,7 +83,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="prevButton" min="-2" pref="171" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="nextCard" pref="187" max="32767" attributes="0"/>
+                          <Component id="nextCard" pref="599" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
@@ -195,10 +195,13 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="cardAddButton" pref="166" max="32767" attributes="0"/>
-                                  <Component id="chooseButton" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="cardAddButton" min="-2" pref="166" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="chooseButton" min="-2" pref="166" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="saveListButton" min="-2" pref="166" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -219,8 +222,11 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="cardAddButton" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="chooseButton" min="-2" pref="93" max="-2" attributes="0"/>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="chooseButton" alignment="3" min="-2" pref="93" max="-2" attributes="0"/>
+                          <Component id="saveListButton" alignment="3" min="-2" pref="93" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -277,7 +283,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="cardAddButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Add Card to File"/>
+                <Property name="text" type="java.lang.String" value="Add Card to List"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="chooseButton">
@@ -286,6 +292,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="saveListButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Save List to File"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveListButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

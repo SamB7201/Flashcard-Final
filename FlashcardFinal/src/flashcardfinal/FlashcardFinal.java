@@ -133,6 +133,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cardAddButton = new javax.swing.JButton();
         chooseButton = new javax.swing.JButton();
+        saveListButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,7 +187,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
             .addGroup(displayCardPanelLayout.createSequentialGroup()
                 .addComponent(prevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nextCard, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                .addComponent(nextCard, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
             .addGroup(displayCardPanelLayout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(TermLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,7 +221,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
             .addGroup(displayPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(displayCardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Flashcard Display", displayPanel);
@@ -242,12 +243,19 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel2.setText("Definition");
         jLabel2.setToolTipText("");
 
-        cardAddButton.setText("Add Card to File");
+        cardAddButton.setText("Add Card to List");
 
         chooseButton.setText("Choose File");
         chooseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chooseButtonActionPerformed(evt);
+            }
+        });
+
+        saveListButton.setText("Save List to File");
+        saveListButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveListButtonActionPerformed(evt);
             }
         });
 
@@ -266,9 +274,12 @@ public class FlashcardFinal extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(savePanelLayout.createSequentialGroup()
                         .addGap(104, 104, 104)
-                        .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cardAddButton, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(chooseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(savePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         savePanelLayout.setVerticalGroup(
@@ -285,8 +296,10 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Create and Save Flashcards", savePanel);
@@ -304,7 +317,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanel)
+                .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -464,6 +477,10 @@ public class FlashcardFinal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nextCardActionPerformed
 
+    private void saveListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveListButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveListButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -515,6 +532,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton nextCard;
     private javax.swing.JButton prevButton;
+    private javax.swing.JButton saveListButton;
     private javax.swing.JPanel savePanel;
     private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JTextArea termField;
