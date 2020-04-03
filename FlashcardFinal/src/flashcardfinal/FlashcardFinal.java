@@ -166,8 +166,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
                     .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(displayCardPanelLayout.createSequentialGroup()
                             .addGap(106, 106, 106)
-                            .addComponent(TermLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TermLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(chooseDisplay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,6 +228,11 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel2.setToolTipText("");
 
         cardAddButton.setText("Add Card to List");
+        cardAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardAddButtonActionPerformed(evt);
+            }
+        });
 
         chooseButton.setText("Choose File");
         chooseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -462,8 +466,34 @@ public class FlashcardFinal extends javax.swing.JFrame {
     }//GEN-LAST:event_nextCardActionPerformed
 
     private void saveListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveListButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            FileWriter fileOut = new FileWriter(saveFile, true);
+            String outputLine;
+            
+            for(int x=0; x<saveCards.size(); x++){
+                outputLine = String.format("%s, %s\n",
+                        saveCards.get(x).getDefinition(),
+                        saveCards.get(x).getTerm());
+                
+                fileOut.write(outputLine);
+            }
+            fileOut.close();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Cannot write company file \n" +
+                    ex.getMessage(), "File IO Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        saveCards.clear();
     }//GEN-LAST:event_saveListButtonActionPerformed
+
+    private void cardAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardAddButtonActionPerformed
+        // TODO add your handling code here:
+        aCard = new Flashcard(termField.getText(),defField.getText());
+        
+        saveCards.add(aCard);
+        termField.setText("");
+        defField.setText("");
+    }//GEN-LAST:event_cardAddButtonActionPerformed
 
     /**
      * @param args the command line arguments

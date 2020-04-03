@@ -86,7 +86,6 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                                       <Component id="TermLabel" min="-2" pref="145" max="-2" attributes="0"/>
-                                      <EmptySpace pref="108" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="chooseDisplay" alignment="0" max="32767" attributes="0"/>
@@ -306,6 +305,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Add Card to List"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cardAddButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="chooseButton">
               <Properties>
