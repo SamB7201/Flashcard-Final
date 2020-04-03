@@ -342,37 +342,6 @@ public class FlashcardFinal extends javax.swing.JFrame {
         } else {
             return;
         }
-        try {
-            selectedFile = saveFile.toString();
-            fs = FileSystems.getDefault();
-            pathToFile = fs.getPath(selectedFile);
-            cardln = Files.newInputStream(pathToFile);
-            cardReader = new BufferedReader(new InputStreamReader(cardln));
-
-            //read the file
-            while ((line = cardReader.readLine()) != null) {
-                String data[] = line.split(",");
-                aCard = new Flashcard();
-
-                try {
-                    aCard.setTerm(data[0]);
-                    aCard.setDefinition(data[1]);
-
-                    saveCards.add(aCard);
-
-                } catch (NumberFormatException numberFormatException) {
-                    //do nothing - skip the error
-                    //eliminate problems with bad ids
-                    //in reality you would fix this
-                }
-            }//end of while
-
-            cardln.close();
-            //JOptionPane.showMessageDialog(this, "Records read = " + contactList.size());
-        } catch (IOException ex) {
-            System.out.println("Cannont open " + pathToFile.getFileName());
-            System.exit(1);
-        }//end of catch
     }//GEN-LAST:event_chooseButtonActionPerformed
 
     private void displayPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayPanelMouseClicked
@@ -472,11 +441,12 @@ public class FlashcardFinal extends javax.swing.JFrame {
             
             for(int x=0; x<saveCards.size(); x++){
                 outputLine = String.format("%s, %s\n",
-                        saveCards.get(x).getDefinition(),
-                        saveCards.get(x).getTerm());
+                        saveCards.get(x).getTerm(),
+                        saveCards.get(x).getDefinition());
                 
                 fileOut.write(outputLine);
             }
+            fileOut.flush();
             fileOut.close();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Cannot write company file \n" +
