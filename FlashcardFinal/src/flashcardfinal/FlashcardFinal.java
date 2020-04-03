@@ -535,14 +535,15 @@ public class FlashcardFinal extends javax.swing.JFrame {
 
     private void cardAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardAddButtonActionPerformed
         // TODO add your handling code here:
-        aCard = new Flashcard(termField.getText(), defField.getText());
-
-        saveCards.add(aCard);
-        String listText = saveListTextArea.getText();
-        listText += "Card: Term: " + aCard.getTerm() + ", Definition: " + aCard.getDefinition() + "\n";
-        saveListTextArea.setText(listText);
-        termField.setText("");
-        defField.setText("");
+        if (!"".equals(termField.getText()) && !"".equals(defField.getText())) {
+            aCard = new Flashcard(termField.getText(), defField.getText());
+            saveCards.add(aCard);
+            String listText = saveListTextArea.getText();
+            listText += "Card: Term: " + aCard.getTerm() + ", Definition: " + aCard.getDefinition() + "\n";
+            saveListTextArea.setText(listText);
+            termField.setText("");
+            defField.setText("");
+        }
     }//GEN-LAST:event_cardAddButtonActionPerformed
 
     /**
