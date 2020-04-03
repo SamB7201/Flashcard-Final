@@ -36,6 +36,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
     BufferedReader cardReader;
     JFileChooser saveChooser = new JFileChooser();
     File saveFile = null;
+    File displayFile = null;
     ArrayList<Flashcard> displayCards = new ArrayList<Flashcard>();
     ArrayList<Flashcard> saveCards = new ArrayList<Flashcard>();
     int index = 0;
@@ -74,36 +75,6 @@ public class FlashcardFinal extends javax.swing.JFrame {
         initComponents();
         this.TermLabel.setText("Card # " + (index + 1));
         this.setTitle("Flashcards");
-//        try {
-//            fs = FileSystems.getDefault();
-//            pathToFile = fs.getPath("c:\\Data\\flashcardterms.csv");
-//            cardln = Files.newInputStream(pathToFile);
-//            cardReader = new BufferedReader(new InputStreamReader(cardln));
-//
-//            //read the file
-//            while ((line = cardReader.readLine()) != null) {
-//                String data[] = line.split(",");
-//                aCard = new Flashcard();
-//
-//                try {
-//                    aCard.setTerm(data[0]);
-//                    aCard.setDefinition(data[1]);
-//
-//                    displayCards.add(aCard);
-//
-//                } catch (NumberFormatException numberFormatException) {
-//                    //do nothing - skip the error
-//                    //eliminate problems with bad ids
-//                    //in reality you would fix this
-//                }
-//            }//end of while
-//
-//            cardln.close();
-//        } catch (IOException ex) {
-//            System.out.println("Cannont open " + pathToFile.getFileName());
-//            System.exit(1);
-//        }//end of catch
-//        showRecord();
     }
 
     /**
@@ -143,7 +114,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
             }
         });
 
-        TermLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        TermLabel.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         TermLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TermLabel.setText("Term");
 
@@ -183,16 +154,19 @@ public class FlashcardFinal extends javax.swing.JFrame {
         displayCardPanel.setLayout(displayCardPanelLayout);
         displayCardPanelLayout.setHorizontalGroup(
             displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(displayCardPanelLayout.createSequentialGroup()
-                .addComponent(prevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nextCard, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
             .addGroup(displayCardPanelLayout.createSequentialGroup()
                 .addGap(106, 106, 106)
                 .addComponent(TermLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(chooseDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(113, Short.MAX_VALUE))
+            .addGroup(displayCardPanelLayout.createSequentialGroup()
+                .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(chooseDisplay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(displayCardPanelLayout.createSequentialGroup()
+                        .addComponent(prevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nextCard, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         displayCardPanelLayout.setVerticalGroup(
             displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,14 +284,13 @@ public class FlashcardFinal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanel)
-                .addContainerGap())
+                .addComponent(tabPanel))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                .addComponent(tabPanel)
                 .addContainerGap())
         );
 
@@ -418,17 +391,17 @@ public class FlashcardFinal extends javax.swing.JFrame {
         //If user approves save
         if (fileSelection == JFileChooser.APPROVE_OPTION) {
             //set saveFile to the selected file
-            saveFile = saveChooser.getSelectedFile();
+            displayFile = saveChooser.getSelectedFile();
             //If the file does not exist
-            if (!saveFile.exists()) {
-                JOptionPane.showMessageDialog(this, "File " + saveFile.getPath() + " does not exist!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (!displayFile.exists()) {
+                JOptionPane.showMessageDialog(this, "File " + displayFile.getPath() + " does not exist!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } else {
             return;
         }
         try {
-            selectedFile = saveFile.toString();
+            selectedFile = displayFile.toString();
             fs = FileSystems.getDefault();
             pathToFile = fs.getPath(selectedFile);
             cardln = Files.newInputStream(pathToFile);
