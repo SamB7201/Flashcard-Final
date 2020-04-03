@@ -369,8 +369,6 @@ public class FlashcardFinal extends javax.swing.JFrame {
             System.out.println("Cannont open " + pathToFile.getFileName());
             System.exit(1);
         }//end of catch
-
-        showRecord();
     }//GEN-LAST:event_chooseButtonActionPerformed
 
     private void displayPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayPanelMouseClicked
