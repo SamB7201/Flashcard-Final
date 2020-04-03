@@ -368,13 +368,15 @@ public class FlashcardFinal extends javax.swing.JFrame {
 
     private void TextAreaFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextAreaFieldMouseClicked
         // TODO add your handling code here:
-        if (evt.getButton() == evt.BUTTON1) {
-            //this.TermLabel.setText("Definition");
-            this.TextAreaField.setText(displayCards.get(index).getDefinition());
+        if (displayCards.size() != 0) {
+            if (evt.getButton() == evt.BUTTON1) {
+                //this.TermLabel.setText("Definition");
+                this.TextAreaField.setText(displayCards.get(index).getDefinition());
 
-        } else if (evt.getButton() == evt.BUTTON3) {
-            //this.TermLabel.setText("Term");
-            this.TextAreaField.setText(displayCards.get(index).getTerm());
+            } else if (evt.getButton() == evt.BUTTON3) {
+                //this.TermLabel.setText("Term");
+                this.TextAreaField.setText(displayCards.get(index).getTerm());
+            }
         }
     }//GEN-LAST:event_TextAreaFieldMouseClicked
 
