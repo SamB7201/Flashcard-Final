@@ -46,12 +46,73 @@ public class FlashcardFinal extends javax.swing.JFrame {
     /**
      * Creates new form FlashcardFinal
      */
+    //Count the indices of commas in the given string and return them as an arraylist
+    public ArrayList<Integer> countCommaIndex(String string) {
+        //create arraylist
+        ArrayList<Integer> commaList = new ArrayList<>();
+        //loop through characters
+        for (int x = 0; x < string.length(); x++) {
+            //if current character is a comma
+            if (Character.toString(string.charAt(x)).equals(",")) {
+                //add the current index
+                commaList.add(x);
+            }
+        }
+        //return arraylist
+        return commaList;
+    }
+    //removes commas from the given string
+    public String removeCommas(String string) {
+        //create temporary string builder
+        StringBuilder tempString = new StringBuilder(string);
+        //loop through characters.
+        for (int x = 0; x < tempString.length(); x++) {
+            //if the current character is a comma
+            if (Character.toString(tempString.charAt(x)).equals(",")) {
+                //remove it
+                tempString.replace(x, x + 1, "");
+                //reduce index by one to retain consistency
+                x -= 1;
+            }
+        }
+        //convert stringBuilder to string
+        string = tempString.toString();
+        //return string sans commas
+        return string;
+    }
+    //add commas to the given string given the positions of them in period-separated format
+    public String addCommas(String string, String commaString) {
+        try {
+            //split string at periods
+            String commaIndicesAsString[] = commaString.split("\\.");
+            //create arraylist.
+            ArrayList<Integer> commaIndicesAsInt = new ArrayList<Integer>();
+            //convert string arraylist to int arraylist
+            for (int x = 0; x < commaIndicesAsString.length; x++) {
+                commaIndicesAsInt.add(Integer.parseInt(commaIndicesAsString[x]));
+            }
+            //create temporary stringbuilder
+            StringBuilder tempString = new StringBuilder(string);
+            //add commas at their respective positions
+            for (int x = 0; x < commaIndicesAsInt.size(); x++) {
+                tempString.insert(commaIndicesAsInt.get(x).intValue(), ',');
+            }
+            //convert stringbuilder to string
+            string = tempString.toString();
+            //ignore NumberFormatExceptions.
+        } catch (NumberFormatException nfe) {
+
+        }
+        //return string with commas added
+        return string;
+    }
+    //show the record at the current index of Display Cards
     public void showRecord() {
         TextAreaField.setText(displayCards.get(index).getTerm());
         this.TermLabel.setText("Card # " + (index + 1));
     }
     
-    public void showMarkedRecord() {
+        public void showMarkedRecord() {
         TextAreaField.setText(markedCards.get(index).getTerm());
         this.TermLabel.setText("Card # " + (index + 1));
     }
@@ -541,11 +602,17 @@ public class FlashcardFinal extends javax.swing.JFrame {
             return;
         }
         try {
+            //clear display cards
             displayCards.clear();
+            //get selected file
             selectedFile = displayFile.toString();
+            //get default filesystem
             fs = FileSystems.getDefault();
+            //get path
             pathToFile = fs.getPath(selectedFile);
+            //create inputstream
             cardln = Files.newInputStream(pathToFile);
+            //create buffered reader
             cardReader = new BufferedReader(new InputStreamReader(cardln));
 
             //read the file
@@ -554,9 +621,25 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 aCard = new Flashcard();
 
                 try {
-                    aCard.setTerm(data[0]);
-                    aCard.setDefinition(data[1]);
-
+                    //if there are at least 3 data entries
+                    if (data.length >= 3) {
+                        //add commas
+                        aCard.setTerm(addCommas(data[0], data[2]));
+                        // else
+                    } else {
+                        //add base term
+                        aCard.setTerm(data[0]);
+                    }
+                    //if at least 4 data entries
+                    if (data.length >= 4) {
+                        //add commas
+                        aCard.setDefinition(addCommas(data[1], data[3]));
+                        //else
+                    } else {
+                        //add base term
+                        aCard.setDefinition(data[1]);
+                    }
+                    // add card to list
                     displayCards.add(aCard);
 
                 } catch (NumberFormatException numberFormatException) {
@@ -572,6 +655,8 @@ public class FlashcardFinal extends javax.swing.JFrame {
             System.out.println("Cannont open " + pathToFile.getFileName());
             System.exit(1);
         }
+        //show first record
+        index = 0;
         showRecord();
 
     }//GEN-LAST:event_chooseDisplayActionPerformed
@@ -593,47 +678,103 @@ public class FlashcardFinal extends javax.swing.JFrame {
     }//GEN-LAST:event_nextCardActionPerformed
 
     private void saveListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveListButtonActionPerformed
+        //if file is selected
         if (saveFile != null) {
             try {
                 FileWriter fileOut = new FileWriter(saveFile, true);
                 String outputLine;
-
+                //loop through saveCards
                 for (int x = 0; x < saveCards.size(); x++) {
-                    outputLine = String.format("%s, %s\n",
-                            saveCards.get(x).getTerm(),
-                            saveCards.get(x).getDefinition());
+                    //if displayFile isnt null
                     if (displayFile != null) {
-                        System.out.println("Not Null");
+                        //and both files have the same path
                         if (displayFile.getPath().equals(saveFile.getPath())) {
-                            System.out.println("Same Path");
-                            displayCards.add(saveCards.get(x));
+                            //add a copy of the card to displayCards. This avoids the card being modified when saveCards is changed later.
+                            displayCards.add(new Flashcard(saveCards.get(x).getTerm(),saveCards.get(x).getDefinition()));
                         }
                     }
+                    //get the positions of the commas in the term
+                    saveCards.get(x).setTermCommas(countCommaIndex(saveCards.get(x).getTerm()));
+                    //remove commas from term
+                    saveCards.get(x).setTerm(removeCommas(saveCards.get(x).getTerm()));
+                    // get comma positions in definition
+                    saveCards.get(x).setDefCommas(countCommaIndex(saveCards.get(x).getDefinition()));
+                    // remove commas from definition
+                    saveCards.get(x).setDefinition(removeCommas(saveCards.get(x).getDefinition()));
+                    //create base line for output
+                    outputLine = String.format("%s,%s,",
+                            saveCards.get(x).getTerm(),
+                            saveCards.get(x).getDefinition());
+                    //if there are commas in the term
+                    if (saveCards.get(x).getTermCommas().size() != 0) {
+                        //loop through comma positions
+                        for (int y = 0; y < saveCards.get(x).getTermCommas().size(); y++) {
+                            //if current index isnt the last one
+                            if (y < (saveCards.get(x).getTermCommas().size() - 1)) {
+                                //add postion separated with a period
+                                outputLine += saveCards.get(x).getTermCommas().get(y) + ".";
+                                //else
+                            } else {
+                                //add position separated with a comma
+                                outputLine += saveCards.get(x).getTermCommas().get(y) + ".,";
+                            }
+                        } // end of for
+                        //else
+                    } else {
+                        //add comma at the end
+                        outputLine += " ,";
+                    }
+                    //if there are some commas
+                    if (saveCards.get(x).getDefCommas().size() != 0) {
+                        //start of for, looping through def commas
+                        for (int y = 0; y < saveCards.get(x).getDefCommas().size(); y++) {
+                            //add def comma separated by period
+                            outputLine += saveCards.get(x).getDefCommas().get(y) + ".";
+                        }
+                    }
+                    //add newline at the end
+                    outputLine += "\n";
+                    //Write the line
                     fileOut.write(outputLine);
                 }
+                //flush writer
                 fileOut.flush();
+                //close stream
                 fileOut.close();
+                //catch io exception
             } catch (IOException ex) {
+                //error message
                 JOptionPane.showMessageDialog(this, "Cannot write company file \n"
                         + ex.getMessage(), "File IO Error", JOptionPane.ERROR_MESSAGE);
             }
+            //clear saveList text
             saveListTextArea.setText("");
+            //clear saveCards list
             saveCards.clear();
 
         } else {
+            //error message
             JOptionPane.showMessageDialog(this, "Please make sure you have chosen a file!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_saveListButtonActionPerformed
 
     private void cardAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardAddButtonActionPerformed
         // TODO add your handling code here:
+        //if a term and definition are entered
         if (!"".equals(termField.getText()) && !"".equals(defField.getText())) {
+            //create new flashcard with respective text fields
             aCard = new Flashcard(termField.getText(), defField.getText());
+            //add it to saveCards
             saveCards.add(aCard);
+            //get the current text of the saveList text area
             String listText = saveListTextArea.getText();
+            //add new card to the end of it
             listText += "Card: Term: " + aCard.getTerm() + ", Definition: " + aCard.getDefinition() + "\n";
+            //set the text to new text
             saveListTextArea.setText(listText);
+            //clear term field
             termField.setText("");
+            //clear def field.
             defField.setText("");
         }
     }//GEN-LAST:event_cardAddButtonActionPerformed
