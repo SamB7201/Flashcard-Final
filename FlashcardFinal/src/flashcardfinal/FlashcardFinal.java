@@ -28,6 +28,7 @@ import javax.swing.JOptionPane;
 public class FlashcardFinal extends javax.swing.JFrame {
 
     Flashcard aCard;
+    Flashcard userMarkedCard;
     String line;
     FileSystem fs;
     Path pathToFile;
@@ -39,6 +40,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
     File displayFile = null;
     ArrayList<Flashcard> displayCards = new ArrayList<Flashcard>();
     ArrayList<Flashcard> saveCards = new ArrayList<Flashcard>();
+    ArrayList<Flashcard> markedCards = new ArrayList<Flashcard>();
     int index = 0;
 
     /**
@@ -48,12 +50,44 @@ public class FlashcardFinal extends javax.swing.JFrame {
         TextAreaField.setText(displayCards.get(index).getTerm());
         this.TermLabel.setText("Card # " + (index + 1));
     }
+    
+    public void showMarkedRecord() {
+        TextAreaField.setText(markedCards.get(index).getTerm());
+        this.TermLabel.setText("Card # " + (index + 1));
+    }
 
     public void updateRecord() {
         saveCards.add(new Flashcard(termField.getText(), defField.getText()));
 
     }
+    
+    public void markCard() {
+        userMarkedCard.setTerm(displayCards.get(index).getTerm());
+        userMarkedCard.setDefinition(displayCards.get(index).getDefinition());
+        markedCards.add(userMarkedCard);
+    }
 
+    public void viewMarkedCards() {
+        try {
+
+            //read the file
+            while ((line = cardReader.readLine()) != null) {
+                String data[] = line.split(",");
+
+                try {
+
+                } catch (NumberFormatException numberFormatException) {
+                }
+            }//end of while
+
+            cardln.close();
+        } catch (IOException ex) {
+            System.out.println("Cannont open " + pathToFile.getFileName());
+            System.exit(1);
+        }
+        showMarkedRecord();
+    }
+    
     public void writeToFile() {
         String outputLine = "";
 
@@ -76,7 +110,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
         this.TermLabel.setText("Card # " + (index + 1));
         this.setTitle("Flashcards");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
