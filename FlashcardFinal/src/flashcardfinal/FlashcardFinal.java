@@ -96,6 +96,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
         nextCard = new javax.swing.JButton();
         chooseDisplay = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        currentDisplayFileField = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
         savePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         termField = new javax.swing.JTextArea();
@@ -106,6 +109,12 @@ public class FlashcardFinal extends javax.swing.JFrame {
         cardAddButton = new javax.swing.JButton();
         chooseButton = new javax.swing.JButton();
         saveListButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        saveListTextArea = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        currentSaveFileField = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,8 +130,10 @@ public class FlashcardFinal extends javax.swing.JFrame {
 
         TextAreaField.setEditable(false);
         TextAreaField.setColumns(20);
+        TextAreaField.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         TextAreaField.setLineWrap(true);
         TextAreaField.setRows(5);
+        TextAreaField.setWrapStyleWord(true);
         TextAreaField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TextAreaFieldMouseClicked(evt);
@@ -155,27 +166,35 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Left-Click for Definition, Right-Click for term!");
 
+        currentDisplayFileField.setEditable(false);
+        currentDisplayFileField.setColumns(20);
+        currentDisplayFileField.setLineWrap(true);
+        currentDisplayFileField.setRows(5);
+        currentDisplayFileField.setWrapStyleWord(true);
+        jScrollPane5.setViewportView(currentDisplayFileField);
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Current FIle");
+
         javax.swing.GroupLayout displayCardPanelLayout = new javax.swing.GroupLayout(displayCardPanel);
         displayCardPanel.setLayout(displayCardPanelLayout);
         displayCardPanelLayout.setHorizontalGroup(
             displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TermLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(displayCardPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(displayCardPanelLayout.createSequentialGroup()
-                            .addGap(106, 106, 106)
-                            .addComponent(TermLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(chooseDisplay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(displayCardPanelLayout.createSequentialGroup()
-                                .addComponent(prevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nextCard, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 15, Short.MAX_VALUE))
+                    .addComponent(chooseDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
+                    .addGroup(displayCardPanelLayout.createSequentialGroup()
+                        .addComponent(prevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nextCard, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         displayCardPanelLayout.setVerticalGroup(
             displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,12 +206,16 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(prevButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(displayCardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(prevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nextCard, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chooseDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout displayPanelLayout = new javax.swing.GroupLayout(displayPanel);
@@ -205,14 +228,16 @@ public class FlashcardFinal extends javax.swing.JFrame {
             displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(displayPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(displayCardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addComponent(displayCardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         tabPanel.addTab("Flashcard Display", displayPanel);
 
         termField.setColumns(20);
+        termField.setLineWrap(true);
         termField.setRows(5);
+        termField.setWrapStyleWord(true);
         jScrollPane1.setViewportView(termField);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -220,7 +245,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel1.setText("Term");
 
         defField.setColumns(20);
+        defField.setLineWrap(true);
         defField.setRows(5);
+        defField.setWrapStyleWord(true);
         jScrollPane3.setViewportView(defField);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -229,6 +256,11 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel2.setToolTipText("");
 
         cardAddButton.setText("Add Card to List");
+        cardAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardAddButtonActionPerformed(evt);
+            }
+        });
 
         chooseButton.setText("Choose File");
         chooseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -244,47 +276,83 @@ public class FlashcardFinal extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Created Cards");
+
+        saveListTextArea.setEditable(false);
+        saveListTextArea.setColumns(20);
+        saveListTextArea.setLineWrap(true);
+        saveListTextArea.setRows(5);
+        saveListTextArea.setWrapStyleWord(true);
+        jScrollPane4.setViewportView(saveListTextArea);
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Current File");
+
+        currentSaveFileField.setEditable(false);
+        currentSaveFileField.setColumns(20);
+        currentSaveFileField.setLineWrap(true);
+        currentSaveFileField.setRows(5);
+        currentSaveFileField.setWrapStyleWord(true);
+        jScrollPane6.setViewportView(currentSaveFileField);
+
         javax.swing.GroupLayout savePanelLayout = new javax.swing.GroupLayout(savePanel);
         savePanel.setLayout(savePanelLayout);
         savePanelLayout.setHorizontalGroup(
             savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(savePanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(savePanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cardAddButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(chooseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(saveListButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane6)))
                     .addGroup(savePanelLayout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(savePanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         savePanelLayout.setVerticalGroup(
             savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(savePanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(saveListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(savePanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(savePanelLayout.createSequentialGroup()
+                        .addComponent(chooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saveListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(savePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Create and Save Flashcards", savePanel);
@@ -295,14 +363,14 @@ public class FlashcardFinal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                .addComponent(tabPanel))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanel)
-                .addContainerGap())
+                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -335,40 +403,10 @@ public class FlashcardFinal extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
+            currentSaveFileField.setText(saveFile.getPath());
         } else {
             return;
         }
-        try {
-            selectedFile = saveFile.toString();
-            fs = FileSystems.getDefault();
-            pathToFile = fs.getPath(selectedFile);
-            cardln = Files.newInputStream(pathToFile);
-            cardReader = new BufferedReader(new InputStreamReader(cardln));
-
-            //read the file
-            while ((line = cardReader.readLine()) != null) {
-                String data[] = line.split(",");
-                aCard = new Flashcard();
-
-                try {
-                    aCard.setTerm(data[0]);
-                    aCard.setDefinition(data[1]);
-
-                    saveCards.add(aCard);
-
-                } catch (NumberFormatException numberFormatException) {
-                    //do nothing - skip the error
-                    //eliminate problems with bad ids
-                    //in reality you would fix this
-                }
-            }//end of while
-
-            cardln.close();
-            //JOptionPane.showMessageDialog(this, "Records read = " + contactList.size());
-        } catch (IOException ex) {
-            System.out.println("Cannont open " + pathToFile.getFileName());
-            System.exit(1);
-        }//end of catch
     }//GEN-LAST:event_chooseButtonActionPerformed
 
     private void displayPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayPanelMouseClicked
@@ -408,10 +446,12 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "File " + displayFile.getPath() + " does not exist!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            currentDisplayFileField.setText(displayFile.getPath());
         } else {
             return;
         }
         try {
+            displayCards.clear();
             selectedFile = displayFile.toString();
             fs = FileSystems.getDefault();
             pathToFile = fs.getPath(selectedFile);
@@ -443,6 +483,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
             System.exit(1);
         }
         showRecord();
+
     }//GEN-LAST:event_chooseDisplayActionPerformed
 
     private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
@@ -462,8 +503,50 @@ public class FlashcardFinal extends javax.swing.JFrame {
     }//GEN-LAST:event_nextCardActionPerformed
 
     private void saveListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveListButtonActionPerformed
-        // TODO add your handling code here:
+        if (saveFile != null) {
+            try {
+                FileWriter fileOut = new FileWriter(saveFile, true);
+                String outputLine;
+
+                for (int x = 0; x < saveCards.size(); x++) {
+                    outputLine = String.format("%s, %s\n",
+                            saveCards.get(x).getTerm(),
+                            saveCards.get(x).getDefinition());
+                    if (displayFile != null) {
+                        System.out.println("Not Null");
+                        if (displayFile.getPath().equals(saveFile.getPath())) {
+                            System.out.println("Same Path");
+                            displayCards.add(saveCards.get(x));
+                        }
+                    }
+                    fileOut.write(outputLine);
+                }
+                fileOut.flush();
+                fileOut.close();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Cannot write company file \n"
+                        + ex.getMessage(), "File IO Error", JOptionPane.ERROR_MESSAGE);
+            }
+            saveListTextArea.setText("");
+            saveCards.clear();
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Please make sure you have chosen a file!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_saveListButtonActionPerformed
+
+    private void cardAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardAddButtonActionPerformed
+        // TODO add your handling code here:
+        if (!"".equals(termField.getText()) && !"".equals(defField.getText())) {
+            aCard = new Flashcard(termField.getText(), defField.getText());
+            saveCards.add(aCard);
+            String listText = saveListTextArea.getText();
+            listText += "Card: Term: " + aCard.getTerm() + ", Definition: " + aCard.getDefinition() + "\n";
+            saveListTextArea.setText(listText);
+            termField.setText("");
+            defField.setText("");
+        }
+    }//GEN-LAST:event_cardAddButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -506,18 +589,27 @@ public class FlashcardFinal extends javax.swing.JFrame {
     private javax.swing.JButton cardAddButton;
     private javax.swing.JButton chooseButton;
     private javax.swing.JButton chooseDisplay;
+    private javax.swing.JTextArea currentDisplayFileField;
+    private javax.swing.JTextArea currentSaveFileField;
     private javax.swing.JTextArea defField;
     private javax.swing.JPanel displayCardPanel;
     private javax.swing.JPanel displayPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JButton nextCard;
     private javax.swing.JButton prevButton;
     private javax.swing.JButton saveListButton;
+    private javax.swing.JTextArea saveListTextArea;
     private javax.swing.JPanel savePanel;
     private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JTextArea termField;
