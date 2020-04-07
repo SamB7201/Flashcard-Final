@@ -513,7 +513,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
                             saveCards.get(x).getTerm(),
                             saveCards.get(x).getDefinition());
                     if (displayFile != null) {
-                        if (displayFile.getPath() == saveFile.getPath()) {
+                        System.out.println("Not Null");
+                        if (displayFile.getPath().equals(saveFile.getPath())) {
+                            System.out.println("Same Path");
                             displayCards.add(saveCards.get(x));
                         }
                     }
