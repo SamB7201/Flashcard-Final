@@ -120,7 +120,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabPanel = new javax.swing.JTabbedPane();
+        MarkedCardPanel = new javax.swing.JTabbedPane();
         displayPanel = new javax.swing.JPanel();
         displayCardPanel = new javax.swing.JPanel();
         TermLabel = new javax.swing.JLabel();
@@ -149,6 +149,11 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         currentSaveFileField = new javax.swing.JTextArea();
+        MarkedCardsPanel = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -247,7 +252,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 .addComponent(chooseDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -266,7 +271,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tabPanel.addTab("Flashcard Display", displayPanel);
+        MarkedCardPanel.addTab("Flashcard Display", displayPanel);
 
         termField.setColumns(20);
         termField.setLineWrap(true);
@@ -375,7 +380,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(savePanelLayout.createSequentialGroup()
@@ -389,7 +394,54 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        tabPanel.addTab("Create and Save Flashcards", savePanel);
+        MarkedCardPanel.addTab("Create and Save Flashcards", savePanel);
+
+        MarkedCardsPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MarkedCardsPanelMouseClicked(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel7.setText("Marked Cards");
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel8.setText("Card 1:");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane7.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout MarkedCardsPanelLayout = new javax.swing.GroupLayout(MarkedCardsPanel);
+        MarkedCardsPanel.setLayout(MarkedCardsPanelLayout);
+        MarkedCardsPanelLayout.setHorizontalGroup(
+            MarkedCardsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
+                .addGroup(MarkedCardsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addComponent(jLabel7))
+                    .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
+                        .addGap(328, 328, 328)
+                        .addComponent(jLabel8))
+                    .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(219, Short.MAX_VALUE))
+        );
+        MarkedCardsPanelLayout.setVerticalGroup(
+            MarkedCardsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(384, Short.MAX_VALUE))
+        );
+
+        MarkedCardPanel.addTab("Marked Cards", MarkedCardsPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -397,13 +449,13 @@ public class FlashcardFinal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanel))
+                .addComponent(MarkedCardPanel))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MarkedCardPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -582,6 +634,20 @@ public class FlashcardFinal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cardAddButtonActionPerformed
 
+    private void MarkedCardsPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MarkedCardsPanelMouseClicked
+        if (displayCards.size() != 0) {
+            if (evt.getButton() == evt.BUTTON1) {
+                //this.TermLabel.setText("Definition");
+                this.TextAreaField.setText(displayCards.get(index).getDefinition());
+
+            } else if (evt.getButton() == evt.BUTTON3) {
+                //this.TermLabel.setText("Term");
+                this.TextAreaField.setText(displayCards.get(index).getTerm());
+            }
+        }
+
+    }//GEN-LAST:event_MarkedCardsPanelMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -618,6 +684,8 @@ public class FlashcardFinal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane MarkedCardPanel;
+    private javax.swing.JPanel MarkedCardsPanel;
     private javax.swing.JLabel TermLabel;
     private javax.swing.JTextArea TextAreaField;
     private javax.swing.JButton cardAddButton;
@@ -634,18 +702,21 @@ public class FlashcardFinal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton nextCard;
     private javax.swing.JButton prevButton;
     private javax.swing.JButton saveListButton;
     private javax.swing.JTextArea saveListTextArea;
     private javax.swing.JPanel savePanel;
-    private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JTextArea termField;
     // End of variables declaration//GEN-END:variables
 }
