@@ -149,11 +149,11 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         currentSaveFileField = new javax.swing.JTextArea();
+        markButton = new javax.swing.JButton();
         MarkedCardsPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        markedTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -337,6 +337,13 @@ public class FlashcardFinal extends javax.swing.JFrame {
         currentSaveFileField.setWrapStyleWord(true);
         jScrollPane6.setViewportView(currentSaveFileField);
 
+        markButton.setText("Add Marked Card");
+        markButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                markButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout savePanelLayout = new javax.swing.GroupLayout(savePanel);
         savePanel.setLayout(savePanelLayout);
         savePanelLayout.setHorizontalGroup(
@@ -346,12 +353,15 @@ public class FlashcardFinal extends javax.swing.JFrame {
                 .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(savePanelLayout.createSequentialGroup()
                         .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cardAddButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(chooseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(saveListButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(saveListButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(savePanelLayout.createSequentialGroup()
+                                .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(markButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
@@ -379,7 +389,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cardAddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(markButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(savePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -405,12 +417,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel7.setText("Marked Cards");
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel8.setText("Card 1:");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane7.setViewportView(jTextArea1);
+        markedTextArea.setColumns(20);
+        markedTextArea.setRows(5);
+        jScrollPane7.setViewportView(markedTextArea);
 
         javax.swing.GroupLayout MarkedCardsPanelLayout = new javax.swing.GroupLayout(MarkedCardsPanel);
         MarkedCardsPanel.setLayout(MarkedCardsPanelLayout);
@@ -419,26 +428,21 @@ public class FlashcardFinal extends javax.swing.JFrame {
             .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
                 .addGroup(MarkedCardsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
-                        .addGap(281, 281, 281)
-                        .addComponent(jLabel7))
-                    .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
-                        .addGap(328, 328, 328)
-                        .addComponent(jLabel8))
-                    .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
                         .addGap(191, 191, 191)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(jLabel7)))
                 .addContainerGap(219, Short.MAX_VALUE))
         );
         MarkedCardsPanelLayout.setVerticalGroup(
             MarkedCardsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MarkedCardsPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(46, 46, 46)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         MarkedCardPanel.addTab("Marked Cards", MarkedCardsPanel);
@@ -648,6 +652,19 @@ public class FlashcardFinal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MarkedCardsPanelMouseClicked
 
+    private void markButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markButtonActionPerformed
+        // TODO add your handling code here:
+        if (!"".equals(termField.getText()) && !"".equals(defField.getText())) {
+            aCard = new Flashcard(termField.getText(), defField.getText());
+            markedCards.add(aCard);
+            String listText = markedTextArea.getText();
+            listText += "Marked Card| Term: " + aCard.getTerm() + ", Definition: " + aCard.getDefinition() + "\n";
+            markedTextArea.setText(listText);
+            termField.setText("");
+            defField.setText("");
+        }
+    }//GEN-LAST:event_markButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -703,7 +720,6 @@ public class FlashcardFinal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -711,7 +727,8 @@ public class FlashcardFinal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton markButton;
+    private javax.swing.JTextArea markedTextArea;
     private javax.swing.JButton nextCard;
     private javax.swing.JButton prevButton;
     private javax.swing.JButton saveListButton;
