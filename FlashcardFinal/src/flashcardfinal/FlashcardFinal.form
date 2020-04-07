@@ -86,9 +86,11 @@
                               <Component id="chooseDisplay" max="32767" attributes="0"/>
                               <Component id="jScrollPane2" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="prevButton" min="-2" pref="363" max="-2" attributes="0"/>
+                                  <Component id="prevButton" min="-2" pref="262" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="nextCard" pref="353" max="32767" attributes="0"/>
+                                  <Component id="markCurrentButton" min="-2" pref="195" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="nextCard" min="-2" pref="263" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
@@ -107,15 +109,18 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="prevButton" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
-                              <Component id="nextCard" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="markCurrentButton" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="prevButton" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
+                                  <Component id="nextCard" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chooseDisplay" min="-2" pref="94" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="9" max="32767" attributes="0"/>
                           <Component id="jScrollPane5" min="-2" pref="111" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -216,6 +221,14 @@
                     <Property name="text" type="java.lang.String" value="Current FIle"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JButton" name="markCurrentButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Mark Current Card"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="markCurrentButtonActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -237,16 +250,12 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane3" alignment="1" pref="356" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" alignment="1" pref="362" max="32767" attributes="0"/>
                                   <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
                                   <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                                   <Component id="chooseButton" alignment="1" max="32767" attributes="0"/>
                                   <Component id="saveListButton" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cardAddButton" min="-2" pref="173" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="markButton" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="cardAddButton" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -282,10 +291,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cardAddButton" alignment="3" min="-2" pref="78" max="-2" attributes="0"/>
-                                  <Component id="markButton" alignment="3" min="-2" pref="78" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="cardAddButton" min="-2" pref="78" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" max="32767" attributes="0"/>
                       </Group>
@@ -302,7 +308,7 @@
                               <Component id="jScrollPane6" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                      <EmptySpace pref="63" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -439,14 +445,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="markButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Add Marked Card"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="markButtonActionPerformed"/>
-              </Events>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="MarkedCardsPanel">
@@ -474,12 +472,17 @@
                           </Group>
                           <Component id="jScrollPane7" max="32767" attributes="0"/>
                           <Component id="jLabel8" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="293" max="-2" attributes="0"/>
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="293" max="-2" attributes="0"/>
-                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="321" max="-2" attributes="0"/>
+                      <Component id="markedTermLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -491,14 +494,16 @@
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Component id="jLabel8" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="markedTermLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane7" min="-2" pref="106" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="markedPrevButton" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
                           <Component id="markedNextButton" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="275" max="32767" attributes="0"/>
+                      <EmptySpace pref="220" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -521,7 +526,11 @@
               <SubComponents>
                 <Component class="javax.swing.JTextArea" name="markedTextArea">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="18" style="1"/>
+                    </Property>
                     <Property name="rows" type="int" value="5"/>
                   </Properties>
                   <Events>
@@ -553,6 +562,14 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Left-Click for Definition, Right-Click for term!"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="markedTermLabel">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="24" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Card # 1"/>
               </Properties>
             </Component>
           </SubComponents>
