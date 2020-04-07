@@ -84,11 +84,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" max="32767" attributes="0"/>
                               <Component id="chooseDisplay" max="32767" attributes="0"/>
-                              <Component id="jScrollPane2" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="732" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="prevButton" min="-2" pref="363" max="-2" attributes="0"/>
+                                  <Component id="prevButton" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="nextCard" pref="353" max="32767" attributes="0"/>
+                                  <Component id="addMarkedCard" min="-2" pref="212" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="nextCard" min="-2" pref="242" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
@@ -107,15 +109,18 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="prevButton" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
-                              <Component id="nextCard" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="prevButton" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
+                                  <Component id="nextCard" alignment="3" min="-2" pref="104" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="addMarkedCard" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chooseDisplay" min="-2" pref="94" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           <Component id="jScrollPane5" min="-2" pref="111" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -216,6 +221,14 @@
                     <Property name="text" type="java.lang.String" value="Current FIle"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JButton" name="addMarkedCard">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Add to Marked Cards"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addMarkedCardActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
@@ -237,16 +250,12 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane3" alignment="1" pref="356" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" alignment="1" pref="362" max="32767" attributes="0"/>
                                   <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
                                   <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
                                   <Component id="chooseButton" alignment="1" max="32767" attributes="0"/>
                                   <Component id="saveListButton" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cardAddButton" min="-2" pref="173" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="markButton" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="markButton" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -282,10 +291,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cardAddButton" alignment="3" min="-2" pref="78" max="-2" attributes="0"/>
-                                  <Component id="markButton" alignment="3" min="-2" pref="78" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="markButton" min="-2" pref="78" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" max="32767" attributes="0"/>
                       </Group>
@@ -302,7 +308,7 @@
                               <Component id="jScrollPane6" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                      <EmptySpace pref="63" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -360,14 +366,6 @@
                 <Property name="text" type="java.lang.String" value="Definition"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="cardAddButton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Add Card to List"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cardAddButtonActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="chooseButton">
               <Properties>
@@ -521,7 +519,11 @@
               <SubComponents>
                 <Component class="javax.swing.JTextArea" name="markedTextArea">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="18" style="1"/>
+                    </Property>
                     <Property name="rows" type="int" value="5"/>
                   </Properties>
                   <Events>
