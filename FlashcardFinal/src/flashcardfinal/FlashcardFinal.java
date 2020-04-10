@@ -16,6 +16,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -706,6 +707,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
             System.exit(1);
         }
         //show first record
+        Collections.shuffle(displayCards);
         index = 0;
         showRecord();
 
@@ -741,6 +743,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
                         if (displayFile.getPath().equals(saveFile.getPath())) {
                             //add a copy of the card to displayCards. This avoids the card being modified when saveCards is changed later.
                             displayCards.add(new Flashcard(saveCards.get(x).getTerm(),saveCards.get(x).getDefinition()));
+                            Collections.shuffle(displayCards);
+                            index = 0;
+                            showRecord();
                         }
                     }
                     //get the positions of the commas in the term
@@ -877,6 +882,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(displayCards.size()>0){
             markedCards.add(displayCards.get(index));
+            Collections.shuffle(markedCards);
             showMarkedRecord();
         }
     }//GEN-LAST:event_markCurrentButtonActionPerformed
