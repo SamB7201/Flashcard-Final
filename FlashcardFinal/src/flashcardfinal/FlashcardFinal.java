@@ -63,7 +63,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
         //return arraylist
         return commaList;
     }
+
     //removes commas from the given string
+
     public String removeCommas(String string) {
         //create temporary string builder
         StringBuilder tempString = new StringBuilder(string);
@@ -82,7 +84,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
         //return string sans commas
         return string;
     }
+
     //add commas to the given string given the positions of them in period-separated format
+
     public String addCommas(String string, String commaString) {
         try {
             //split string at periods
@@ -108,13 +112,14 @@ public class FlashcardFinal extends javax.swing.JFrame {
         //return string with commas added
         return string;
     }
+
     //show the record at the current index of Display Cards
+
     public void showRecord() {
         TextAreaField.setText(displayCards.get(index).getTerm());
         this.TermLabel.setText("Card # " + (index + 1));
     }
 
-    
     public void showMarkedRecord() {
         markedTextArea.setText(markedCards.get(index2).getTerm());
         this.markedTermLabel.setText("Card # " + (index2 + 1));
@@ -682,12 +687,12 @@ public class FlashcardFinal extends javax.swing.JFrame {
                     continue;
                 }
                 aCard = new Flashcard();
-                
+
                 try {
                     //if there are at least 3 data entries
                     if (data.length >= 3) {
                         //add commas
-                            aCard.setTerm(addCommas(data[0], data[2]));
+                        aCard.setTerm(addCommas(data[0], data[2]));
                         // else
                     } else {
                         //add base term
@@ -696,7 +701,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
                     //if at least 4 data entries
                     if (data.length >= 4) {
                         //add commas
-                            aCard.setDefinition(addCommas(data[1], data[3]));
+                        aCard.setDefinition(addCommas(data[1], data[3]));
                         //else
                     } else {
                         //add base term
@@ -798,6 +803,8 @@ public class FlashcardFinal extends javax.swing.JFrame {
                             //add def comma separated by period
                             outputLine += saveCards.get(x).getDefCommas().get(y) + ".";
                         }
+                    }
+                    if (saveCards.get(x).getDefCommas().size() == 0) {
                         outputLine += " ";
                     }
                     //add newline at the end
