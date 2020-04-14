@@ -798,6 +798,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
                             //add def comma separated by period
                             outputLine += saveCards.get(x).getDefCommas().get(y) + ".";
                         }
+                        outputLine += " ";
                     }
                     //add newline at the end
                     outputLine += "\n";
