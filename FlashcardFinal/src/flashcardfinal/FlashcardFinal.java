@@ -65,7 +65,6 @@ public class FlashcardFinal extends javax.swing.JFrame {
     }
 
     //removes commas from the given string
-
     public String removeCommas(String string) {
         //create temporary string builder
         StringBuilder tempString = new StringBuilder(string);
@@ -86,7 +85,6 @@ public class FlashcardFinal extends javax.swing.JFrame {
     }
 
     //add commas to the given string given the positions of them in period-separated format
-
     public String addCommas(String string, String commaString) {
         try {
             //split string at periods
@@ -114,7 +112,6 @@ public class FlashcardFinal extends javax.swing.JFrame {
     }
 
     //show the record at the current index of Display Cards
-
     public void showRecord() {
         TextAreaField.setText(displayCards.get(index).getTerm());
         this.TermLabel.setText("Card # " + (index + 1));
@@ -724,6 +721,12 @@ public class FlashcardFinal extends javax.swing.JFrame {
             System.exit(1);
         }
         //show first record
+
+        //
+        //
+        //Additional Feature Right here 
+        //
+        //
         Collections.shuffle(displayCards);
         index = 0;
         showRecord();
@@ -760,6 +763,12 @@ public class FlashcardFinal extends javax.swing.JFrame {
                         if (displayFile.getPath().equals(saveFile.getPath())) {
                             //add a copy of the card to displayCards. This avoids the card being modified when saveCards is changed later.
                             displayCards.add(new Flashcard(saveCards.get(x).getTerm(), saveCards.get(x).getDefinition()));
+
+                            //
+                            //
+                            //Additional Feature Right here 
+                            //
+                            //
                             Collections.shuffle(displayCards);
                             index = 0;
                             showRecord();
@@ -902,6 +911,12 @@ public class FlashcardFinal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (displayCards.size() > 0) {
             markedCards.add(displayCards.get(index));
+
+            //
+            //
+            //Additional Feature Right here 
+            //
+            //
             Collections.shuffle(markedCards);
             showMarkedRecord();
         }
