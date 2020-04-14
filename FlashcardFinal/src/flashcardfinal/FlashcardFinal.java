@@ -113,8 +113,8 @@ public class FlashcardFinal extends javax.swing.JFrame {
         TextAreaField.setText(displayCards.get(index).getTerm());
         this.TermLabel.setText("Card # " + (index + 1));
     }
-    
 
+    
     public void showMarkedRecord() {
         markedTextArea.setText(markedCards.get(index2).getTerm());
         this.markedTermLabel.setText("Card # " + (index2 + 1));
@@ -124,7 +124,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
         saveCards.add(new Flashcard(termField.getText(), defField.getText()));
 
     }
-    
+
     public void markCard() {
         userMarkedCard.setTerm(displayCards.get(index).getTerm());
         userMarkedCard.setDefinition(displayCards.get(index).getDefinition());
@@ -151,7 +151,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
         }
         showMarkedRecord();
     }
-    
+
     public void writeToFile() {
         String outputLine = "";
 
@@ -174,7 +174,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
         this.TermLabel.setText("Card # " + (index + 1));
         this.setTitle("Flashcards");
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -592,6 +592,10 @@ public class FlashcardFinal extends javax.swing.JFrame {
         if (fileSelection == JFileChooser.APPROVE_OPTION) {
             //set saveFile to the selected file
             saveFile = saveChooser.getSelectedFile();
+            if (!saveFile.getPath().substring(saveFile.getPath().lastIndexOf(".") + 1).equals("csv")) {
+                JOptionPane.showMessageDialog(this, "File is not a CSV!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             //If the file does not exist
             if (!saveFile.exists()) {
                 //Create new file
@@ -643,6 +647,10 @@ public class FlashcardFinal extends javax.swing.JFrame {
         if (fileSelection == JFileChooser.APPROVE_OPTION) {
             //set saveFile to the selected file
             displayFile = saveChooser.getSelectedFile();
+            if (!displayFile.getPath().substring(displayFile.getPath().lastIndexOf(".") + 1).equals("csv")) {
+                JOptionPane.showMessageDialog(this, "File is not a CSV!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             //If the file does not exist
             if (!displayFile.exists()) {
                 JOptionPane.showMessageDialog(this, "File " + displayFile.getPath() + " does not exist!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -669,13 +677,17 @@ public class FlashcardFinal extends javax.swing.JFrame {
             //read the file
             while ((line = cardReader.readLine()) != null) {
                 String data[] = line.split(",");
+                if (data.length != 4) {
+                    JOptionPane.showMessageDialog(this, "Malformed Line detected, skipping line! \nLine:\n" + line, "ERROR", JOptionPane.ERROR_MESSAGE);
+                    continue;
+                }
                 aCard = new Flashcard();
-
+                
                 try {
                     //if there are at least 3 data entries
                     if (data.length >= 3) {
                         //add commas
-                        aCard.setTerm(addCommas(data[0], data[2]));
+                            aCard.setTerm(addCommas(data[0], data[2]));
                         // else
                     } else {
                         //add base term
@@ -684,7 +696,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
                     //if at least 4 data entries
                     if (data.length >= 4) {
                         //add commas
-                        aCard.setDefinition(addCommas(data[1], data[3]));
+                            aCard.setDefinition(addCommas(data[1], data[3]));
                         //else
                     } else {
                         //add base term
@@ -742,7 +754,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
                         //and both files have the same path
                         if (displayFile.getPath().equals(saveFile.getPath())) {
                             //add a copy of the card to displayCards. This avoids the card being modified when saveCards is changed later.
-                            displayCards.add(new Flashcard(saveCards.get(x).getTerm(),saveCards.get(x).getDefinition()));
+                            displayCards.add(new Flashcard(saveCards.get(x).getTerm(), saveCards.get(x).getDefinition()));
                             Collections.shuffle(displayCards);
                             index = 0;
                             showRecord();
@@ -880,7 +892,7 @@ public class FlashcardFinal extends javax.swing.JFrame {
 
     private void markCurrentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markCurrentButtonActionPerformed
         // TODO add your handling code here:
-        if(displayCards.size()>0){
+        if (displayCards.size() > 0) {
             markedCards.add(displayCards.get(index));
             Collections.shuffle(markedCards);
             showMarkedRecord();
