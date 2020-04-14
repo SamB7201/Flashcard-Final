@@ -489,7 +489,9 @@ public class FlashcardFinal extends javax.swing.JFrame {
         markedTextArea.setEditable(false);
         markedTextArea.setColumns(20);
         markedTextArea.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        markedTextArea.setLineWrap(true);
         markedTextArea.setRows(5);
+        markedTextArea.setWrapStyleWord(true);
         markedTextArea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 markedTextAreaMouseClicked(evt);
